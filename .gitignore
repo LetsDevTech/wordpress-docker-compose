@@ -1,0 +1,6 @@
+.env
+*.env
+wp/data
+sql/data
+mautic/data
+caddy/*
