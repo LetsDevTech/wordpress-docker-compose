@@ -4,3 +4,4 @@ wp/data
 sql/data
 mautic/data
 caddy/*
+docker-compose.yaml
