@@ -156,9 +156,10 @@ cat "${TMP_FILE}" >> "${CADDYFILE}"
 rm "${TMP_FILE}"
 
 COMPOSE_FILE=docker-compose.yaml
+COMPOSE_VERSION=3.9
 
 echo '
-version: "'3.8'"
+version: "'${COMPOSE_VERSION}'"
 services:
   reverse_proxy:
     container_name: reverse_proxy
@@ -178,8 +179,19 @@ if [ "${SETUP_MAUTIC}" == "Y" ]; then
 fi
 
 echo '    networks:
-      - mkt
-      - reverse_proxy
+      mkt:
+        aliases:' >> "${COMPOSE_FILE}"
+
+if [ "${SETUP_WP}" == "Y" ]; then
+    echo "          - \"${DOMAIN_NAME}\"" >> "${COMPOSE_FILE}"
+fi
+
+if [ "${SETUP_MAUTIC}" == "Y" ]; then
+    echo "          - \"${MAUTIC_DOMAIN_NAME}\"" >> "${COMPOSE_FILE}"
+fi
+
+
+echo '      reverse_proxy: {}
     ports:
       - 80:80
       - 443:443' >> "${COMPOSE_FILE}"
@@ -194,7 +206,8 @@ if [ "${SETUP_MAUTIC}" == "Y" ]; then
     networks:
       - mkt
     volumes:
-      - ./mautic/data:/var/www/html' >> "${COMPOSE_FILE}"
+      - ./mautic/data:/var/www/html
+      - ./stack-options.ini:/usr/local/etc/php/conf.d/stack-options.ini' >> "${COMPOSE_FILE}"
 fi
 
 if [ "${SETUP_WP}" == "Y" ]; then
@@ -208,7 +221,8 @@ if [ "${SETUP_WP}" == "Y" ]; then
     networks:
       - mkt
     volumes:
-      - ./wp/data:/var/www/html/wp' >> "${COMPOSE_FILE}"
+      - ./wp/data:/var/www/html/wp
+      - ./stack-options.ini:/usr/local/etc/php/conf.d/stack-options.ini' >> "${COMPOSE_FILE}"
 fi
 
 echo '  sql:

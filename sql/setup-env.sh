@@ -12,10 +12,6 @@ if [ -f "${ENV_FILE}" ]; then
 fi
 
 ROOT_PASSWORD=$(openssl rand -base64 15)
-# WP_PASSWORD=$(openssl rand -base64 15)
+
 
 echo "MARIADB_ROOT_PASSWORD=${ROOT_PASSWORD}" > "${ENV_FILE}"
-# echo "MARIADB_DATABASE=wp" >> "${ENV_FILE}"
-# echo "MARIADB_USER=wp" >> "${ENV_FILE}"
-# echo "MARIADB_PASSWORD=${WP_PASSWORD}" >> "${ENV_FILE}"
-
