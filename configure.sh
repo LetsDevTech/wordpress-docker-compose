@@ -235,6 +235,10 @@ echo '  sql:
     - mkt
     volumes:
       - ./sql/data:/var/lib/mysql
+      - ./sql/pki/ca.crt:/etc/mysql/ssl/ca.crt
+      - ./sql/pki/sql.crt:/etc/mysql/ssl/sql.crt
+      - ./sql/pki/sql.key:/etc/mysql/ssl/sql.key
+      - ./sql/pki/tls.cnf:/etc/mysql/conf.d/tls.cnf
 networks:
   mkt: {}
   reverse_proxy: {}

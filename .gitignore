@@ -2,6 +2,7 @@
 *.env
 wp/data
 sql/data
+sql/pki
 mautic/data
 caddy/*
 docker\-compose.yaml

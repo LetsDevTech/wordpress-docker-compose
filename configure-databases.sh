@@ -3,6 +3,8 @@
 SETUP_WP="${1}"
 SETUP_MAUTIC="${2}"
 
+./configure-sql-pki.sh
+
 docker compose up -d sql
 
 # TODO: Check for sql container ready
