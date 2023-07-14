@@ -6,3 +6,4 @@ sql/pki
 mautic/data
 caddy/*
 docker\-compose.yaml
+secrets/
